@@ -1,0 +1,6 @@
+{
+    "AUTHOR" : "ajm1996 - https://github.com/ajm1996, hhuynh15 - https://github.com/hhuynh15"
+    "DESCRIPTION" : "[p]blackjack or [p]bj for a list of blackjack commands. Core code written by ajm, I just made it pretty.", 
+    "DISABLED" : false,
+    "NAME" : "Blackjack"
+}
