@@ -1,5 +1,5 @@
 {
-    "AUTHORS" : "ajm1996 - https://github.com/ajm1996 and hhuynh15 - https://github.com/hhuynh15"
+    "AUTHORS" : "ajm1996 - https://github.com/ajm1996 and hhuynh15 - https://github.com/hhuynh15",
 	"SHORT" : "Play blackjack by yourself or with other people on your server",
     "DESCRIPTION" : "[p]blackjack or [p]bj for a list of blackjack commands.", 
     "DISABLED" : false,
