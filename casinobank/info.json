@@ -1,9 +1,9 @@
 {
     "AUTHORS" : "Made by Twentysix26 edited by hhuynh15"
-	"SHORT" : "Functions exactly like the default economy cog except with a few quality of life changes.",
+	"SHORT" : "Functions exactly like the default economy cog except with a few quality of life changes for the blackjack cog.",
     "DESCRIPTION" : "[p]bank for casino bank commands.", 
     "DISABLED" : true,
-    "NAME" : "casino bank",
+    "NAME" : "casinobank",
 	"TAGS" : "bank, blackjack, economy, money, credits, utility",
 	"INSTALL_MSG" : "Usage: `[p]bank` to start. NOTE: YOU MUST DISABLE THE ECONOMY COG IN ORDER FOR THIS TO FUNCTION PROPERLY"
 }
