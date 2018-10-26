@@ -6,4 +6,4 @@ Install with red: type `[p]cog repo add Crimson-Gears https://github.com/hhuynh1
 
 `[p]cog install Crimson-Gears blackjack`
 
-`[p]cog install Crimson-Gears casino bank`
+`[p]cog install Crimson-Gears casinobank`
