@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD:casinobank/info.json
     "AUTHORS" : "Made by Twentysix26 edited by hhuynh15"
 	"SHORT" : "Functions exactly like the default economy cog except with a few quality of life changes for the blackjack cog.",
+=======
+    "AUTHORS" : "Made by Twentysix26 edited by hhuynh15",
+	"SHORT" : "Functions exactly like the default economy cog except with a few quality of life changes.",
+>>>>>>> 746082267d6f9c4e73030ae4d7e37447950388f8:casino bank/info.json
     "DESCRIPTION" : "[p]bank for casino bank commands.", 
     "DISABLED" : true,
     "NAME" : "casinobank",
