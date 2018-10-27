@@ -34,7 +34,7 @@ class Blackjack:
         self.timer = 0
         self.players = {}
         if imgur_succeed:
-            self.imgur_client = ImgurClient("1fd3ef04daf8cab", "f963e574e8e3c17993c933af4f0522e1dc01e230")
+            self.imgur_client = ImgurClient("8257f564396d82a", "824c63bbad5cf05a2329812d826809b435744b41")
 
         self.deck = {}
 
