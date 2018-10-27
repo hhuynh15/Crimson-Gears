@@ -5,7 +5,6 @@ from random import randint
 
 import aiohttp
 
-from imgurpython import ImgurClient
 
 from .utils.dataIO import dataIO
 from .utils import checks
@@ -15,6 +14,13 @@ from PIL import Image,ImageDraw,ImageDraw2
 import os
 import asyncio
 import sys
+
+try:
+    from imgurpython import ImgurClient
+    imgur_succeed = True
+except:
+    raise RuntimeError("imgurpython is not installed. Do 'pip3 install imgurpython' to use this cog.")
+    imgur_succeed = False
 
 class Blackjack:
 
@@ -27,6 +33,8 @@ class Blackjack:
         self.game_state = "null"
         self.timer = 0
         self.players = {}
+        if imgur_succeed:
+            self.imgur_client = ImgurClient("1fd3ef04daf8cab", "f963e574e8e3c17993c933af4f0522e1dc01e230")
 
         self.deck = {}
 
@@ -279,7 +287,7 @@ class Blackjack:
             del cards[1]
 
             if self.settings["BLACKJACK_IMAGES_ENABLED"]:
-                await self.show_hand(player, curr_hand, ctx.message)
+                await self.show_hand(player, curr_hand, ctx.message, " ")
 
         elif self.game_state != "game":
             await self.bot.say("{0}, you cannot split right now!".format(player.name))
@@ -337,8 +345,6 @@ class Blackjack:
 
                     if self.settings["BLACKJACK_IMAGES_ENABLED"]:
                             await self.show_hand(player, curr_hand, ctx.message, desc)
-
-                    await asyncio.sleep(1)
 
                 self.players[self.bot] = {}
                 self.players[self.bot]["curr_hand"] = 0
@@ -522,7 +528,7 @@ class Blackjack:
                     break
         return count
 
-    async def show_hand(self,player,curr_hand, message, desc:str=None, firstDeal:bool=None):
+    async def show_hand(self, player, curr_hand, message, desc: str=None, firstDeal: bool=None):
         cards = self.players[player]["hand"][curr_hand]["card"]
         box1 = (0,0,56,82)
         box2 = (0,0,112,82)
@@ -549,19 +555,23 @@ class Blackjack:
                 hand.save("data/blackjack/hand/{}_hand.png".format(player.name))
             crd.close()
         hand.close()
-        imgurclient = ImgurClient("1fd3ef04daf8cab", "f963e574e8e3c17993c933af4f0522e1dc01e230")
+
         if player is self.bot:
-            pic = imgurclient.upload_from_path("data/blackjack/hand/{}_hand.png".format("dealer"))
-            em = discord.Embed(title = '', description = desc, colour = 0x002e20 )
-            em.set_image(url=pic['link'])
+            pic = self.imgur_client.upload_from_path("data/blackjack/hand/{}_hand.png".format("dealer"))
+            em = discord.Embed(title=' ', description=desc, colour=0x002e20 )
+            link = pic['link']
+            new_link = link[0:8] + ('w' * 3) + link[9:len(link)]
+            em.set_image(url=new_link)
             em.set_author(name='The Dealer')
-            await self.bot.send_message(message.channel, embed = em)
+            await self.bot.send_message(message.channel, embed=em)
         else:
-            pic = imgurclient.upload_from_path("data/blackjack/hand/{}_hand.png".format(player.name))
-            em = discord.Embed(title = '', description = desc, colour = 0x95270e )
-            em.set_image(url=pic['link'])
-            em.set_author(name= '{}'.format(player.name), icon_url= player.avatar_url)
-            await self.bot.send_message(message.channel, embed = em)
+            pic = self.imgur_client.upload_from_path("data/blackjack/hand/{}_hand.png".format(player.name))
+            em = discord.Embed(title=' ', description=desc, colour=0x95270e)
+            link = pic['link']
+            new_link = link[0:8] + ('w' * 3) + link[9:len(link)]
+            em.set_image(url=new_link)
+            em.set_author(name='{}'.format(player.name), icon_url=player.avatar_url)
+            await self.bot.send_message(message.channel, embed=em)
 
     # async def delete_messages(self, ctx):
     #     server = ctx.message.server
@@ -658,7 +668,7 @@ def check_files():
         "BLACKJACK_MAX" : 5000,
         "BLACKJACK_MAX_ENABLED" : False,
         "BLACKJACK_GAME_TIME" : 60,
-        "BLACKJACK_PRE_GAME_TIME" : 15,
+        "BLACKJACK_PRE_GAME_TIME" : 10,
         "BLACKJACK_IMAGES_ENABLED" : True
     }
 
@@ -670,9 +680,4 @@ def check_files():
 def setup(bot):
     check_folders()
     check_files()
-    global ImgurClient
-    try:
-        from imgurpython import ImgurClient
-    except:
-        raise RuntimeError("imgurpython is not installed. Do 'pip3 install imgurpython' to use this cog.")
     bot.add_cog(Blackjack(bot))
