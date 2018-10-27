@@ -279,7 +279,7 @@ class Blackjack:
             del cards[1]
 
             if self.settings["BLACKJACK_IMAGES_ENABLED"]:
-                await self.show_hand(player, curr_hand, ctx.message, desc)
+                await self.show_hand(player, curr_hand, ctx.message)
 
         elif self.game_state != "game":
             await self.bot.say("{0}, you cannot split right now!".format(player.name))
@@ -387,7 +387,7 @@ class Blackjack:
                         desc = "**The dealer has drawn a {0}, totaling his hand to {1}!**".format(card, str(dealer_count))
 
                     if self.settings["BLACKJACK_IMAGES_ENABLED"]:
-                        await self.show_hand(player, curr_hand, ctx.message, desc)
+                        await self.show_hand(self.bot, curr_hand, ctx.message, desc)
 
                 await asyncio.sleep(1)
 
@@ -464,6 +464,8 @@ class Blackjack:
                 if self.game_state == "pregame":
                     for player in self.players:
                         if player != self.bot:
+                            em = discord.Embed(title = '', description = '', colour= 0x95270e)
+                            em.set_author(name = player.name, icon_url = player.avatar_url)
                             em.add_field(name = 'Current Balance', value = '{0}'.format(self.bot.get_cog('Economy').bank.get_balance(player)))
                             await self.bot.send_message(ctx.message.channel, embed = em)
                             #await self.bot.say("{0} now has a balance of: {1}".format(player.name, self.bot.get_cog('Economy').bank.get_balance(player)))
@@ -556,7 +558,6 @@ class Blackjack:
             await self.bot.send_message(message.channel, embed = em)
         else:
             pic = imgurclient.upload_from_path("data/blackjack/hand/{}_hand.png".format(player.name))
-            #mesg = await self.bot.send_message(message.channel, hand)
             em = discord.Embed(title = '', description = desc, colour = 0x95270e )
             em.set_image(url=pic['link'])
             em.set_author(name= '{}'.format(player.name), icon_url= player.avatar_url)
@@ -673,5 +674,5 @@ def setup(bot):
     try:
         from imgurpython import ImgurClient
     except:
-        raise ModuleNotFound("imgurpython is not installed. Do 'pip3 install imgurpython' to use this cog.")
+        raise RuntimeError("imgurpython is not installed. Do 'pip3 install imgurpython' to use this cog.")
     bot.add_cog(Blackjack(bot))
