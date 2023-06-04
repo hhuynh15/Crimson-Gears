@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Cog-Creators/Red-DiscordBot/V3/develop/schema/red_cog.schema.json",
+    "name": "AvaBot",
+    "short": "A discord chatbot made to emulate a real person.",
+    "description": "A discord chatbot made to emulate a real person. Made in memory of my close friend Nathan.",
+    "end_user_data_statement": "This bot will store chat messages in order to create normal, free flowing, sounding conversation.",
+    "author": ["Hieu Huynh"],
+    "required_cogs": {},
+    "requirements": [],
+    "tags": ["AI", "Chat", "Bot"],
+    "min_bot_version": "3.3.10",
+    "hidden": true,
+    "disabled": true,
+    "type": "COG"
+}
